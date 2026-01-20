@@ -2,69 +2,34 @@ name: Deploy Marinex
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v3
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    # FRONTEND
-    - name: Install Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
+      - name: Copy project to VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "./*"
+          target: "/var/www/marinex"
+          strip_components: 1
 
-    - name: Build React
-      working-directory: ./frontend
-      run: |
-        npm install
-        npm run build
-
-    - name: Upload Frontend to VPS
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        source: "frontend/dist/**"
-        target: "/var/www/marinex/frontend/dist"
-        strip_components: 1
-
-    # BACKEND
-    - name: Upload Django Backend
-      uses: appleboy/scp-action@v0.1.4
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        source: "marinex/**"
-        target: "/var/www/marinex/backend"
-        strip_components: 1
-
-    - name: Install backend & restart services
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_KEY }}
-        script_stop: false
-        script: |
-          cd /var/www/marinex/backend
-
-          python3 -m venv venv || true
-          source venv/bin/activate
-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-
-          python manage.py migrate --noinput
-          python manage.py collectstatic --noinput
-
-          sudo systemctl restart marinex-api
-          sudo systemctl restart nginx
-
+      - name: SSH remote deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /var/www/marinex
+            docker compose down
+            docker compose build --no-cache
+            docker compose up -d --force-recreate
