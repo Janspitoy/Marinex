@@ -67,4 +67,3 @@ jobs:
 
           sudo systemctl restart marinex-api
           sudo systemctl restart nginx
-
