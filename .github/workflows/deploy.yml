@@ -1,0 +1,62 @@
+name: Deploy Marinex
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # ---------- FRONTEND ----------
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 18
+
+    - name: Build React App
+      working-directory: ./frontend
+      run: |
+        npm install
+        npm run build
+
+    - name: Upload Frontend to VPS
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        source: "frontend/build/*"
+        target: "/var/www/marinex/frontend/build"
+
+    # ---------- BACKEND ----------
+    - name: Upload Django Backend to VPS
+      uses: appleboy/scp-action@v0.1.4
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        source: "marinex/*"
+        target: "/var/www/marinex/backend"
+
+    # ---------- SERVER COMMANDS ----------
+    - name: Run migrations and restart services
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USER }}
+        key: ${{ secrets.SSH_KEY }}
+        script: |
+          cd /var/www/marinex/backend
+          source venv/bin/activate
+          pip install -r requirements.txt
+          python manage.py migrate --noinput
+          python manage.py collectstatic --noinput
+          sudo systemctl restart marinex-api
+          sudo systemctl restart nginx
