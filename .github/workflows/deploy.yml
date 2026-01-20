@@ -32,8 +32,8 @@ jobs:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
-        source: "frontend/build/*"
-        target: "/var/www/marinex/frontend/build"
+        source: "frontend/dist/*"
+        target: "/var/www/marinex/frontend/dist"
 
     # ---------- BACKEND ----------
     - name: Upload Django Backend to VPS
