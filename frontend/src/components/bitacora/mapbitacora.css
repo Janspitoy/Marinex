@@ -1,0 +1,342 @@
+/* frontend/src/components/bitacora/mapbitacora.css */
+
+/* --- 1. ГЛАВНАЯ СЕТКА (ОБЯЗАТЕЛЬНО ВЫСОТА) --- */
+.bitacora-wrapper {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 350px);
+  position: relative;
+  overflow: hidden;
+}
+
+.bitacora-map-area {
+  width: 66.66%; /* 2/3 Экрана */
+  height: 100%;
+  position: relative;
+}
+
+.bitacora-sidepanel {
+  width: 33.33%; /* 1/3 Экрана */
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  overflow-y: auto;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: #0f172a; /* Фоллбэк цвет */
+}
+
+/* --- 2. СТИЛИЗАЦИЯ ПОИСКА (GEOCODER) --- */
+/* Делаем поиск темным, чтобы подходил под дизайн */
+.mapboxgl-ctrl-geocoder {
+  background-color: #1e293b !important; /* Темно-синий фон */
+  color: white !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5) !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  min-width: 300px !important; /* Ширина строки поиска */
+  border-radius: 25px !important;
+}
+
+/* Цвет текста ввода */
+.mapboxgl-ctrl-geocoder--input {
+  color: white !important;
+  border-radius: 25px !important;
+}
+
+/* Цвет иконки лупы */
+.mapboxgl-ctrl-geocoder--icon-search {
+  fill: #94a3b8 !important;
+}
+
+/* Кнопка закрытия (крестик) */
+.mapboxgl-ctrl-geocoder--button {
+  background-color: transparent !important;
+}
+
+/* Поднимаем поиск над другими элементами */
+.mapboxgl-ctrl-top-left {
+  z-index: 50;
+  margin-top: 10px;
+  margin-left: 10px;
+  border-radius: 25px !important;
+}
+
+/* --- 3. GLASS EFFECT (СТЕКЛО) --- */
+.glass {
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 25px;
+  color: #e2e8f0;
+}
+
+/* --- 4. GPS И МАРКЕРЫ --- */
+.gps-user-marker {
+  width: 20px;
+  height: 20px;
+  background-color: #38bdf8;
+  border: 3px solid white;
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(56, 189, 248, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(56, 189, 248, 0); }
+}
+
+/* Попапы Mapbox */
+.mapboxgl-popup-content {
+  background: #1e293b !important;
+  color: white !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px !important;
+  padding: 10px !important;
+}
+.mapboxgl-popup-tip {
+  border-top-color: #1e293b !important;
+}
+
+.map-popup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.map-popup-actions button {
+  background: rgba(255,255,255,0.1);
+  color: white;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.map-popup-actions button:hover {
+  background: #38bdf8;
+  color: #0f172a;
+}
+
+.mapboxgl-canvas {
+  max-width: 975px !important;
+  border-radius: 25px !important;
+}
+
+/* --- 5. ТАБЛИЦА И СПИСКИ --- */
+.live-info {
+  margin-bottom: 20px;
+}
+.live-table-container {
+  flex: 1;
+  overflow-y: auto;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 10px;
+}
+.log-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.85rem;
+}
+
+/* Бейджи */
+.badge { padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; font-weight: bold; text-transform: uppercase; }
+.badge.gps { background: #3b82f6; color: white; }
+.badge.start { background: #22c55e; color: black; }
+.badge.stop { background: #f97316; color: white; }
+.badge.end { background: #ef4444; color: white; }
+
+/* Кнопки управления */
+.live-controls button { width: 100%; margin-bottom: 8px; padding: 10px; border-radius: 8px; font-weight: bold; border: none; cursor: pointer; }
+.btn-primary { background: #38bdf8; color: #0f172a; }
+.btn-danger { background: #ef4444; color: white; }
+.btn-success { background: #22c55e; color: #0f172a; }
+
+/* --- 6. ПЕРЕКЛЮЧАТЕЛЬ РЕЖИМОВ --- */
+.mode-switch {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  z-index: 40;
+}
+.mode-switch span {
+  padding: 10px 25px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-weight: 600;
+}
+.mode-switch span.active {
+  background: #38bdf8;
+  color: #0f172a;
+  border-radius: 25px;
+}
+
+
+/* --- ESTILOS ADICIONALES --- */
+
+/* Info Cards en Live Mode */
+.live-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.info-card {
+    background: rgba(255,255,255,0.05);
+    padding: 10px;
+    border-radius: 12px;
+    text-align: center;
+}
+.info-card label {
+    display: block;
+    font-size: 0.7rem;
+    color: #94a3b8;
+    margin-bottom: 4px;
+}
+.info-card span {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+}
+
+/* History Header */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.btn-icon {
+    background: rgba(56, 189, 248, 0.2);
+    border: 1px solid #38bdf8;
+    color: white;
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+/* Filter Chip */
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    background: #38bdf8;
+    color: #0f172a;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+.filter-chip span {
+    margin-left: 8px;
+    cursor: pointer;
+    opacity: 0.7;
+}
+.filter-chip span:hover { opacity: 1; }
+
+/* Route List Item */
+.route-item {
+    display: flex;
+    align-items: center;
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s;
+    border: 1px solid transparent;
+}
+.route-item:hover {
+    background: rgba(255,255,255,0.08);
+    border-color: rgba(56, 189, 248, 0.3);
+}
+.route-icon { margin-right: 12px; font-size: 1.2rem; }
+.route-meta { flex: 1; display: flex; flex-direction: column; }
+.route-meta strong { color: #e2e8f0; font-size: 0.95rem; }
+.route-meta small { color: #64748b; font-size: 0.75rem; }
+.route-arrow { color: #64748b; font-weight: bold; }
+
+/* Playback Controls */
+.playback-controls {
+    padding: 15px;
+    margin: 15px 0;
+    background: rgba(15, 23, 42, 0.6);
+}
+.playback-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.btn-play { flex: 2; background: #38bdf8; color: #0f172a; border:none; padding: 8px; border-radius: 6px; font-size:1.2rem; cursor:pointer;}
+.btn-stop { flex: 1; background: #ef4444; color: white; border:none; padding: 8px; border-radius: 6px; font-size:1.2rem; cursor:pointer;}
+
+.playback-info p { margin: 4px 0; font-size: 0.9rem; color: #cbd5e1; }
+.toggle-follow { display: block; font-size: 0.8rem; color: #94a3b8; margin-bottom: 10px; cursor: pointer;}
+.toggle-follow input { margin-right: 8px; }
+
+/* Export Actions */
+.export-actions {
+    display: flex;
+    gap: 10px;
+}
+.export-actions button {
+    flex: 1;
+    background: transparent;
+    border: 1px solid #64748b;
+    color: #cbd5e1;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.export-actions button:hover {
+    border-color: #38bdf8;
+    color: #38bdf8;
+}
+
+/* Calendar Styles Update */
+.has-route {
+    background: rgba(56, 189, 248, 0.25);
+    color: #38bdf8;
+    font-weight: bold;
+    border: 1px solid #38bdf8;
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+}
+.btn-close-calendar {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.btn-back {
+    background: none;
+    border: none;
+    color: #38bdf8;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    padding: 0;
+}
+
+/* --- 7. КАЛЕНДАРЬ (MODAL) --- */
+.bitacora-calendar-overlay {
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+}
+.bitacora-calendar { width: 320px; padding: 20px; }
+.calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+.calendar-nav-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
+.calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+.calendar-weekday { font-size: 0.75rem; color: #64748b; margin-bottom: 5px; }
+.calendar-cell { padding: 8px; border-radius: 6px; cursor: pointer; }
+.calendar-cell:hover { background: rgba(255,255,255,0.1); }
+.calendar-has-route { background: rgba(56, 189, 248, 0.2); color: #38bdf8; border: 1px solid #38bdf8; }
+.calendar-close { width: 100%; margin-top: 15px; padding: 8px; background: rgba(255,255,255,0.1); color: white; border: none; border-radius: 6px; cursor: pointer; }

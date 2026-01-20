@@ -1,0 +1,459 @@
+[
+  {
+    "model": "core.userrole",
+    "pk": "a0000001-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Account Owner"
+    }
+  },
+  {
+    "model": "core.userrole",
+    "pk": "a0000001-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Account Manager"
+    }
+  },
+  {
+    "model": "core.userrole",
+    "pk": "a0000001-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Guest"
+    }
+  },
+  {
+    "model": "core.usercargo",
+    "pk": "a0000002-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Captain"
+    }
+  },
+  {
+    "model": "core.usercargo",
+    "pk": "a0000002-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Mechanic"
+    }
+  },
+  {
+    "model": "core.usercargo",
+    "pk": "a0000002-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Crew"
+    }
+  },
+  {
+    "model": "core.subscriptionplan",
+    "pk": "a0000003-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Free",
+      "max_boats": 1,
+      "allow_navigation": false,
+      "allow_support": false,
+      "price_monthly": 0
+    }
+  },
+  {
+    "model": "core.subscriptionplan",
+    "pk": "a0000003-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Standard",
+      "max_boats": 5,
+      "allow_navigation": true,
+      "allow_support": false,
+      "price_monthly": 49.99
+    }
+  },
+  {
+    "model": "core.subscriptionplan",
+    "pk": "a0000003-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Pro",
+      "max_boats": 99,
+      "allow_navigation": true,
+      "allow_support": true,
+      "price_monthly": 99.99
+    }
+  },
+  {
+    "model": "core.country",
+    "pk": "a0000004-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Spain",
+      "iso_code": "ES"
+    }
+  },
+  {
+    "model": "core.country",
+    "pk": "a0000004-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Italy",
+      "iso_code": "IT"
+    }
+  },
+  {
+    "model": "core.country",
+    "pk": "a0000004-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "France",
+      "iso_code": "FR"
+    }
+  },
+  {
+    "model": "core.province",
+    "pk": "a0000005-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Barcelona",
+      "country": "a0000004-0000-0000-0000-000000000001"
+    }
+  },
+  {
+    "model": "core.province",
+    "pk": "a0000005-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Girona",
+      "country": "a0000004-0000-0000-0000-000000000001"
+    }
+  },
+  {
+    "model": "core.province",
+    "pk": "a0000005-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Lazio",
+      "country": "a0000004-0000-0000-0000-000000000002"
+    }
+  },
+  {
+    "model": "core.port",
+    "pk": "a0000006-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Port Vell",
+      "province": "a0000005-0000-0000-0000-000000000001"
+    }
+  },
+  {
+    "model": "core.port",
+    "pk": "a0000006-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Port Olímpic",
+      "province": "a0000005-0000-0000-0000-000000000001"
+    }
+  },
+  {
+    "model": "core.port",
+    "pk": "a0000006-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Port de Palamós",
+      "province": "a0000005-0000-0000-0000-000000000002"
+    }
+  },
+  {
+    "model": "core.serviceofficial",
+    "pk": "a0000007-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Mechanical Service"
+    }
+  },
+  {
+    "model": "core.serviceofficial",
+    "pk": "a0000007-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Electrical Service"
+    }
+  },
+  {
+    "model": "core.serviceofficial",
+    "pk": "a0000007-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Cleaning Service"
+    }
+  },
+  {
+    "model": "core.espaceocupat",
+    "pk": "a0000008-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Workshop"
+    }
+  },
+  {
+    "model": "core.espaceocupat",
+    "pk": "a0000008-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Dock"
+    }
+  },
+  {
+    "model": "core.company",
+    "pk": "a0000009-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Nautica BCN",
+      "country": "a0000004-0000-0000-0000-000000000001",
+      "province": "a0000005-0000-0000-0000-000000000001",
+      "email": "contact@nauticabcn.es"
+    }
+  },
+  {
+    "model": "core.company",
+    "pk": "a0000009-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Marina Services Girona",
+      "country": "a0000004-0000-0000-0000-000000000001",
+      "province": "a0000005-0000-0000-0000-000000000002",
+      "email": "info@msgirona.es"
+    }
+  },
+  {
+    "model": "core.boatbrand",
+    "pk": "a0000010-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Beneteau",
+      "country": "a0000004-0000-0000-0000-000000000003"
+    }
+  },
+  {
+    "model": "core.boatbrand",
+    "pk": "a0000010-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Jeanneau",
+      "country": "a0000004-0000-0000-0000-000000000003"
+    }
+  },
+  {
+    "model": "core.boatbrand",
+    "pk": "a0000010-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Bavaria Yachts",
+      "country": null
+    }
+  },
+  {
+    "model": "core.boatmodel",
+    "pk": "a0000011-0000-0000-0000-000000000001",
+    "fields": {
+      "brand": "a0000010-0000-0000-0000-000000000001",
+      "service_company": "a0000009-0000-0000-0000-000000000001",
+      "name": "Oceanis 45",
+      "length": 13.94,
+      "width": 4.5,
+      "draft": 2.27
+    }
+  },
+  {
+    "model": "core.boatmodel",
+    "pk": "a0000011-0000-0000-0000-000000000002",
+    "fields": {
+      "brand": "a0000010-0000-0000-0000-000000000002",
+      "service_company": "a0000009-0000-0000-0000-000000000001",
+      "name": "Sun Odyssey 440",
+      "length": 13.39,
+      "width": 4.29,
+      "draft": 2.2
+    }
+  },
+  {
+    "model": "core.documentcategory",
+    "pk": "a0000012-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Legal",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.documentcategory",
+    "pk": "a0000012-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Insurance",
+      "parent": "a0000012-0000-0000-0000-000000000001",
+      "level": 1
+    }
+  },
+  {
+    "model": "core.documentcategory",
+    "pk": "a0000012-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Registration",
+      "parent": "a0000012-0000-0000-0000-000000000001",
+      "level": 1
+    }
+  },
+  {
+    "model": "core.documentcategory",
+    "pk": "a0000012-0000-0000-0000-000000000004",
+    "fields": {
+      "name": "Maintenance",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.documentperiodization",
+    "pk": "a0000013-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Annual",
+      "months": 12
+    }
+  },
+  {
+    "model": "core.documentperiodization",
+    "pk": "a0000013-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Every 5 Years",
+      "months": 60
+    }
+  },
+  {
+    "model": "core.documentperiodization",
+    "pk": "a0000013-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "No Expiration",
+      "months": null
+    }
+  },
+  {
+    "model": "core.documentstatus",
+    "pk": "a0000014-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Valid"
+    }
+  },
+  {
+    "model": "core.documentstatus",
+    "pk": "a0000014-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Expired"
+    }
+  },
+  {
+    "model": "core.documentstatus",
+    "pk": "a0000014-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Pending Review"
+    }
+  },
+  {
+    "model": "core.documentstatus",
+    "pk": "a0000014-0000-0000-0000-000000000004",
+    "fields": {
+      "name": "Missing"
+    }
+  },
+  {
+    "model": "core.workcategory",
+    "pk": "a0000015-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "Engine",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.workcategory",
+    "pk": "a0000015-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Hull",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.workcategory",
+    "pk": "a0000015-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Safety",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.workcategory",
+    "pk": "a0000015-0000-0000-0000-000000000004",
+    "fields": {
+      "name": "Antifouling",
+      "parent": "a0000015-0000-0000-0000-000000000002",
+      "level": 1
+    }
+  },
+  {
+    "model": "core.taskcategory",
+    "pk": "a0000016-0000-0000-0000-000000000001",
+    "fields": {
+      "name": "General Maintenance",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.taskcategory",
+    "pk": "a0000016-0000-0000-0000-000000000002",
+    "fields": {
+      "name": "Cleaning",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.taskcategory",
+    "pk": "a0000016-0000-0000-0000-000000000003",
+    "fields": {
+      "name": "Administrative",
+      "parent": null,
+      "level": 0
+    }
+  },
+  {
+    "model": "core.workstatus",
+    "pk": "a0000017-0000-0000-0000-000000000001",
+    "fields": {
+      "code": "planned",
+      "name": "Planned"
+    }
+  },
+  {
+    "model": "core.workstatus",
+    "pk": "a0000017-0000-0000-0000-000000000002",
+    "fields": {
+      "code": "in_progress",
+      "name": "In Progress"
+    }
+  },
+  {
+    "model": "core.workstatus",
+    "pk": "a0000017-0000-0000-0000-000000000003",
+    "fields": {
+      "code": "completed",
+      "name": "Completed"
+    }
+  },
+  {
+    "model": "core.workstatus",
+    "pk": "a0000017-0000-0000-0000-000000000004",
+    "fields": {
+      "code": "cancelled",
+      "name": "Cancelled"
+    }
+  },
+  {
+    "model": "core.taskstatus",
+    "pk": "a0000018-0000-0000-0000-000000000001",
+    "fields": {
+      "code": "todo",
+      "name": "To Do"
+    }
+  },
+  {
+    "model": "core.taskstatus",
+    "pk": "a0000018-0000-0000-0000-000000000002",
+    "fields": {
+      "code": "in_progress",
+      "name": "In Progress"
+    }
+  },
+  {
+    "model": "core.taskstatus",
+    "pk": "a0000018-0000-0000-0000-000000000003",
+    "fields": {
+      "code": "done",
+      "name": "Done"
+    }
+  }
+]
