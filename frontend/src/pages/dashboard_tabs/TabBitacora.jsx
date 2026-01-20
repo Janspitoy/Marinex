@@ -6,7 +6,7 @@ import "../../components/bitacora/mapbitacora.css";
 // --- API HELPER ---
 async function apiFetch(endpoint, options = {}) {
   const token = localStorage.getItem("access_token") || localStorage.getItem("auth_token");
-  const url = `http://127.0.0.1:8000/api${endpoint}`; // Asegúrate que esta URL es correcta para tu env
+  const url = `http://marinex-api.touch-craft.com/api${endpoint}`; // Asegúrate que esta URL es correcta para tu env
 
   const headers = {
     ...(options.headers || {}),
@@ -181,7 +181,7 @@ export default function TabBitacora({ boatId }) {
   const exportRoute = (format) => {
     if (!selectedRoute) return;
     const token = localStorage.getItem("access_token");
-    const url = `http://127.0.0.1:8000/api/navigation/route/${selectedRoute.id}/export/${format}/?token=${token}`;
+    const url = `http://marinex-api.touch-craft.com/api/navigation/route/${selectedRoute.id}/export/${format}/?token=${token}`;
     window.open(url, '_blank');
   };
 
