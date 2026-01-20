@@ -4,9 +4,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-@c#pfk5w0qwrnvbg5^*7jb0m@4^x+a$)9lp#6r+5wuqnjlj4t6'
 
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "marinex.touch-craft.com",
+    "marinex-api.touch-craft.com",
+    "217.160.204.89",
+    "localhost",
+    "127.0.0.1",
+]
 
 
 INSTALLED_APPS = [
@@ -90,6 +96,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
+    "http://marinex.touch-craft.com:81",
 ]
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 100000
@@ -100,9 +107,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
-
-STATIC_URL = 'static/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -116,3 +120,6 @@ SECURE_CROSS_ORIGIN_OPENER_POLICY = None
 AUTH_USER_MODEL = 'core.User'
 
 GEMINI_API_KEY = "AIzaSyBVADvydvYaMONXDCD89u7e6ziJKZgfjWg"
+
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"

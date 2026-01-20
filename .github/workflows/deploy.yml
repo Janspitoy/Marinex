@@ -10,21 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # ------------------------------
-    # CHECKOUT
-    # ------------------------------
-    - name: Checkout repository
+    - name: Checkout repo
       uses: actions/checkout@v3
 
-    # ------------------------------
-    # FRONTEND BUILD
-    # ------------------------------
+    # FRONTEND
     - name: Install Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 20   # требуется для Vite
+        node-version: 20
 
-    - name: Build React App
+    - name: Build React
       working-directory: ./frontend
       run: |
         npm install
@@ -38,12 +33,10 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: "frontend/dist/**"
         target: "/var/www/marinex/frontend/dist"
-        strip_components: 2  # обрежет frontend/dist/
+        strip_components: 1
 
-    # ------------------------------
-    # BACKEND DEPLOY
-    # ------------------------------
-    - name: Upload Django Backend to VPS
+    # BACKEND
+    - name: Upload Django Backend
       uses: appleboy/scp-action@v0.1.4
       with:
         host: ${{ secrets.SSH_HOST }}
@@ -51,23 +44,26 @@ jobs:
         key: ${{ secrets.SSH_KEY }}
         source: "marinex/**"
         target: "/var/www/marinex/backend"
-        strip_components: 1   # чтобы manage.py оказался прямо в backend/
+        strip_components: 1
 
-    # ------------------------------
-    # SERVER COMMANDS
-    # ------------------------------
-    - name: Install backend deps & restart services
+    - name: Install backend & restart services
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.SSH_HOST }}
         username: ${{ secrets.SSH_USER }}
         key: ${{ secrets.SSH_KEY }}
+        script_stop: false
         script: |
           cd /var/www/marinex/backend
+
+          python3 -m venv venv || true
           source venv/bin/activate
+
           pip install --upgrade pip
           pip install -r requirements.txt
+
           python manage.py migrate --noinput
           python manage.py collectstatic --noinput
-          systemctl --user restart marinex-api
-          systemctl --user restart nginx
+
+          sudo systemctl restart marinex-api
+          sudo systemctl restart nginx
